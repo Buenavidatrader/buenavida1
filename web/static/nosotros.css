@@ -1,0 +1,332 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #e3ecf5; /* Fondo claro para la página */
+    font-family: 'Poppins', sans-serif;
+    color: #333333; /* Color de texto oscuro para buena legibilidad */
+    margin-top: 80px; /* Para que la navbar fija no tape contenido */
+    background-size: cover;
+    background-attachment: scroll; /* La imagen se desplaza con el contenido */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff !important; /* Fondo blanco para la navbar */
+}
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+.navbar-nav .nav-link {
+    font-size: 20px;
+    color: #000000 !important; /* Color de texto oscuro para los enlaces */
+    transition: color 0.3s ease-in-out;
+}
+.navbar-nav .nav-link:hover {
+    color: rgb(255, 0, 195) !important; /* Color de texto al pasar el mouse */
+}
+.perfil-icon {
+    margin-left: 20px; /* Espacio a la izquierda del icono */
+}
+
+.perfil-icon .dropdown-menu {
+    background-color: #000000; /* Color de fondo del menú */
+    border: none;
+    min-width: 150px; 
+    text-align: center;
+}
+
+.perfil-icon .dropdown-item {
+    color: #333; /* Color del texto */
+    transition: background 0.3s ease-in-out;
+}
+
+.perfil-icon .dropdown-item:hover {
+    background-color: rgb(255, 0, 195); /* Color de fondo al pasar el mouse */
+    color: rgb(255, 0, 195);
+}
+
+
+.titulo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 60vh;
+}
+
+.titulo h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 2px 2px 2px black ;
+    color: white;
+    font-size: 50px;
+}
+.titulo p{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin-top: 20px;
+    width: 54%;
+    text-align: center;
+}
+
+.fondo{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/montaña.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+}
+
+
+
+
+
+/* nuestra trayectoria */
+
+.titulos h3{
+    margin-top: 20px;
+    font-size: 30px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.titulos p{
+    margin-top: 5px;
+}
+
+@media(max-width:600px){
+    .titulo h1{
+        text-align: center;
+    }
+}
+
+/* etiquetas de mision y vision */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+.trayectoria {
+    max-width: 100%; /* Asegura que no se desborde */
+    overflow-x: hidden;
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 30px 0;
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.se{
+    background-color: rgba(0, 0, 0, 0.1);;
+}
+
+.item img {
+    width: 180px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contenido {
+    max-width: 500px;
+}
+
+.contenido h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fc3294;
+}
+
+.contenido p {
+    text-align: justify;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+@media (max-width: 500px) {
+    .item {
+        flex-direction: column;
+        text-align: center;
+    }
+    .item img {
+        margin: 0 0 20px 0;
+        max-width: 100%;
+    }
+}
+
+
+
+/* preguntas con frecuencia */
+
+
+.preguntastodo{
+    margin-top: 50px;
+    padding: 20px;
+    
+}
+
+.preguntas h1{
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.frecuencia{
+    display: flex;
+    justify-content: center;
+}
+
+
+.faq-container {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+.faq-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;  /* Oculta al inicio */
+    transform: translateX(-100px); /* Posición inicial fuera de la pantalla */
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.faq-item.visible {
+    opacity: 1;
+    transform: translateX(0); /* Se mueve a su posición normal */
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.arrow {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    padding: 0 15px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px; /* Ajusta según la cantidad de texto */
+    padding: 10px 15px;
+}
+
+.faq-item.active .arrow {
+    transform: rotate(180deg);
+}
+ 
+
+
+
+/* Footer */
+.footer {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    max-width: 300px;
+    margin: 20px;
+}
+
+.footer-column h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: hotpink;
+}
+
+.footer-column p, .footer-column ul, .footer-column li {
+    font-size: 16px;
+    color: #000000;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    color: hotpink;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #000000;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <img class="wave" src="{% static '/img/rb_1036.png' %}">
+    <div class="container">
+        <div class="img">
+            <img src="{% static '/img/diseño.png' %}">
+        </div>
+        <div class="login-content">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <img src="{% static '/img/avatar.png' %}">
+                <h2 class="title">Bienvenidos</h2>
+                <div class="input-div one">
+                   <div class="i">
+                        <i class="fas fa-user"></i>
+                   </div>
+                   <div class="div">
+                        <h5>Nombre de Usuario</h5>
+                        <input type="text" class="input" name="username" required>
+                   </div>
+                </div>
+                <div class="input-div pass">
+                   <div class="i"> 
+                        <i class="fas fa-lock"></i>
+                   </div>
+                   <div class="div">
+                        <h5>Contraseña</h5>
+                        <input type="password" class="input" name="password" required>
+                   </div>
+                </div>
+                <a href="{% url 'homes' %}"><input type="submit" class="btn" value="Iniciar Sesion"></a>
+                <a href="{% url 'registrar' %}"><input type="button" class="btn1" value="Registrarse"></a>
+            </form>
+        </div>
+    </div>
+    <script src="{% static '/js/login.js' %}"></script>
+</body>
+</html>

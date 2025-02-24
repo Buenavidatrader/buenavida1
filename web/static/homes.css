@@ -1,0 +1,403 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #e3ecf5; /* Fondo claro para la página */
+    font-family: 'Poppins', sans-serif;
+    color: #333333; /* Color de texto oscuro para buena legibilidad */
+    margin-top: 80px; /* Para que la navbar fija no tape contenido */
+    background-size: cover;
+    background-attachment: scroll; /* La imagen se desplaza con el contenido */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff !important; /* Fondo blanco para la navbar */
+}
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+.navbar-nav .nav-link {
+    font-size: 20px;
+    color: #000000 !important; /* Color de texto oscuro para los enlaces */
+    transition: color 0.3s ease-in-out;
+}
+.navbar-nav .nav-link:hover {
+    color: rgb(255, 0, 195) !important; /* Color de texto al pasar el mouse */
+}
+.perfil-icon {
+    margin-left: 20px; /* Espacio a la izquierda del icono */
+}
+
+.perfil-icon .dropdown-menu {
+    background-color: #000000; /* Color de fondo del menú */
+    border: none;
+    min-width: 150px; 
+    text-align: center;
+}
+
+.perfil-icon .dropdown-item {
+    color: #333; /* Color del texto */
+    transition: background 0.3s ease-in-out;
+}
+
+.perfil-icon .dropdown-item:hover {
+    background-color: rgb(255, 0, 195); /* Color de fondo al pasar el mouse */
+    color: black;
+}
+
+
+
+
+
+.titulo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+}
+
+.titulo h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 2px 2px 2px black ;
+    color: white;
+    font-size: 50px;
+}
+.titulo p{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin-top: 20px;
+    width: 54%;
+    text-align: center;
+}
+
+.fondo{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/montaña.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+}
+
+/* productos */
+
+.titulos{
+    margin-left: 25px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.titulos h3{
+    margin-top: 53px;
+    font-size: 30px;
+}
+
+.titulos p{
+    margin-top: 5px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tarjetas de producto */
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Imágenes con animación */
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Texto de las tarjetas */
+.card h3 {
+    font-size: 16px;
+    margin: 15px 0 10px;
+    color: #333;
+}
+
+.card .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Botones */
+.card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: rgb(255, 0, 195);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botones .bt2 {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.card button:hover {
+    background-color: rgb(255, 0, 195);
+    color: white;
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #9ba7d0;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #d0106c;
+    color: #ffffff;
+}
+
+.pagination a.active {
+    color: #fffbff;
+    font-weight: bold;
+}
+
+/* hero */
+
+.hero {
+    margin-top: 50px;
+    text-align: center;
+    padding: 100px 20px;
+    background: url('/static/imagenes/diseño.png');
+    color: rgb(0, 0, 0);
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+ 
+.boton{
+    display: flex;
+    justify-content: center;
+}
+
+.hero .btn {
+    
+	width: 50%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-color: #ffffff;
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fc3294;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;
+    border: #d2116e 1px solid;
+}
+
+.hero .btn:hover {
+    color: white;
+    background-color: #d2116e;
+	background-position: right;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #333;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+}
+
+
+/* Nueva sección de etiquetas */
+/* Estilos generales */
+.tags-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    justify-content: center;
+}
+
+/* Tarjetas individuales */
+.tag {
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    max-width: 100%;
+}
+
+/* Imágenes dentro de las tarjetas */
+.tag img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Títulos */
+.tag h3 {
+    font-size: 22px;
+    margin: 15px 0 5px;
+    color: #333;
+}
+
+/* Párrafos */
+.tag p {
+    font-size: 16px;
+    color: #666;
+    padding: 0 15px 15px;
+}
+
+/* Efecto hover */
+.tag:hover {
+    transform: translateY(-10px);
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 600px) {
+    .tags-section {
+        grid-template-columns: 1fr;
+        padding: 30px 10px;
+    }
+
+    .tag {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
+
+
+/* Footer */
+.footer {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    max-width: 300px;
+    margin: 20px;
+}
+
+.footer-column h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: hotpink;
+}
+
+.footer-column p, .footer-column ul, .footer-column li {
+    font-size: 16px;
+    color: #000000;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    color: hotpink;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #000000;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

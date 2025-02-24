@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuenaVida - Nosotros</title>
+    <link rel="stylesheet" href="{% static 'nosotros.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container"> 
+            <a class="navbar-brand" href="{% url 'homes' %}" style="color: rgb(255, 0, 195);">BuenaVida</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'homes' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'productos' %}">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contáctanos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}"><i class="fas fa-user"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class='bx bxs-user'></i> <!-- Icono de usuario -->
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'manual' %}">
+                                        <i class='bx bx-book'></i> Manual de Usuario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+                                        <i class='bx bx-exit'></i> Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'carrito' %}">
+                                <i class='bx bx-cart'></i> <!-- Icono de carrito de compras -->
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- contenido -->
+    <div class="fondo">
+        <div class="titulo">
+            <h1>Nosotros</h1>
+            <p>
+                Es un placer ayudarte a encontrar los productos ideales para ti. Contamos con una gran variedad y calidad para satisfacer tus necesidades
+            </p>
+        </div>
+    </div>
+
+
+<div class="se">
+    <section class="trayectoria">
+        <div class="todo">
+            <div class="titulos">
+                <h3>Nuestra trayectoria</h3>
+                <p>Pasión por el diseño y la calidad</p>
+            </div>
+        </div>
+        <div class="item" id="inicio">
+            <img src="{% static 'img/creacion.png' %}" alt="Inicio de Buenavida">
+            <div class="contenido">
+                <h2>Inicio de Buenavida</h2>
+                <p>Buenavida nació de la visión de crear manillas y pulseras únicas que reflejan la esencia de cada individuo. Desde nuestros inicios, hemos trabajado incansablemente para ofrecer productos que no solo son atractivos, sino que también cuentan historias. Nuestra misión es conectar a las personas con accesorios que resalten su personalidad y estilo de vida.</p>
+            </div>
+        </div>
+        <div class="item" id="calidad">
+            <img src="{% static 'img/diseño.png' %}" alt="Compromiso con la Calidad">
+            <div class="contenido">
+                <h2>Compromiso con la Calidad</h2>
+                <p>En Buenavida, la calidad es nuestra prioridad. Seleccionamos cuidadosamente los materiales para garantizar que cada manilla y pulsera sea duradera y cómoda de llevar. Nuestro equipo de diseño se esfuerza por innovar constantemente, fusionando tendencias actuales con técnicas artesanales que garantizan la excelencia en cada pieza.</p>
+            </div>
+        </div>
+        <div class="item" id="mision">
+            <img src="{% static 'img/mapa.png' %}" alt="Nuestra Misión">
+            <div class="contenido">
+                <h2>Nuestra Misión</h2>
+                <p>Nuestra misión en Buenavida es inspirar a las personas a expresarse a través de nuestros productos. Creemos que cada accesorio puede ser una extensión de la personalidad y un símbolo de experiencias. Nos comprometemos a seguir creando piezas que no solo embellecen, sino que también empoderan a nuestros clientes.</p>
+            </div>
+        </div>
+        <div class="item" id="mision">
+            <img src="{% static 'img/vision.jpg' %}" alt="Nuestra Misión">
+            <div class="contenido">
+                <h2>Nuestra Visión</h2>
+                <p>En Buenavida, aspiramos a ser la marca líder en la creación de manillas y accesorios que reflejen la esencia de cada persona. Nos comprometemos a diseñar piezas únicas, fusionando creatividad, calidad y estilo, para conectar con quienes buscan expresar su identidad a través de nuestros productos.</p>
+            </div>
+        </div>
+    </section>
+
+     <!-- preguntas con frecuencia -->
+ <div class="preguntastodo">
+    <div class="frecuencia">
+        <div class="preguntas">
+            <h1>Preguntas de envios</h1>
+        </div>
+    </div>
+
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>¿Cuánto tarda el envío?</h3>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>El tiempo de envío puede variar según tu ubicación, pero generalmente, los pedidos se procesan en 1-3 días hábiles. Una vez enviado, recibirás un número de seguimiento para que puedas monitorear tu paquete. Hacemos todo lo posible para que recibas tu pedido lo más rápido posible.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>¿Puedo devolver un producto?</h3>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Sí, ofrecemos un período de devolución de 30 días a partir de la fecha de recepción. Si no estás satisfecho con tu compra, puedes devolver el producto en su estado original. Asegúrate de seguir las instrucciones de devolución que se encuentran en nuestra página para garantizar un proceso sin inconvenientes.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>¿Qué pasa si mi producto llega dañado?</h3>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Si tu producto llega en mal estado, por favor contáctanos inmediatamente. Te pediremos fotos del daño para procesar tu reclamación. Ofrecemos reemplazos o reembolsos en caso de daños durante el envío, asegurando que recibas un producto en perfecto estado.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>Sobre Nosotros</h3>
+            <p>BuenaVida es una empresa dedicada a mejorar tu salud y bienestar.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Enlaces Rápidos</h3>
+            <ul>
+                <li><a href="{% url 'homes' %}">Inicio</a></li>
+                <li><a href="{% url 'productos' %}">Productos</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'contacto' %}">Contáctanos</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contacto</h3>
+            <p>Email: info@buenavida.com</p>
+            <p>Teléfono: +123 456 7890</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 BuenaVida. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+
+
+    <script src="{% static '/js/nosotros.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

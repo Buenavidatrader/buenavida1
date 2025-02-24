@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="{% static 'registrar.css' %}">
+</head>
+<body>
+    <img class="wave" src="{% static '/img/rb_1036.png' %}">
+	<div class="container">
+		<div class="img">
+			<img src="{% static '/img/producto.png' %}">
+		</div>
+		<div class="login-content">
+			 <form method="POST" action="{% url 'registrar' %}">
+                {% csrf_token %}
+				<img src="{% static '/img/avatar.png' %}">
+				<h2 class="title">Registro De Usuario</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Nombre de Usuario</h5>
+           		   		<input type="text" class="input" name="username" required>
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Correo Electronico</h5>
+           		    	<input type="email" class="input" name="email" required>
+            	   </div>
+            	</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Contraseña</h5>
+           		    	<input type="password" class="input" name="password" required>
+            	   </div>
+            	</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5> Confirmar Contraseña</h5>
+           		    	<input type="password" class="input" name="confirm_password" required>
+            	   </div>
+            	</div>
+            	<a href="{% url 'login' %}"><input type="submit" class="btn" value="Registrarse"></a>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static '/js/registrar.js' %}"></script>
+</body>
+</html>

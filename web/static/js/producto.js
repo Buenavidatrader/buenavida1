@@ -11,3 +11,20 @@ function closeMenu() {
  document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".contact-container").classList.add("slide-in");
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".card");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    }, { threshold: 0.2 }); // Se activa cuando el 20% de la tarjeta es visible
+
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+});

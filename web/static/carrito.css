@@ -1,0 +1,261 @@
+/* filepath: /c:/Users/Ambiente 105/Downloads/proyectouno-main/proyectouno-main/web/static/css/carrito.css */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #e3ecf5; /* Fondo claro para la página */
+    font-family: 'Poppins', sans-serif;
+    color: #333333; /* Color de texto oscuro para buena legibilidad */
+    margin-top: 80px; /* Para que la navbar fija no tape contenido */
+    background-size: cover;
+    background-attachment: scroll; /* La imagen se desplaza con el contenido */
+}
+
+/* Navbar */
+.navbar {
+    border-radius: 0 0 30px 30px;
+    background-color: #ffffff !important; /* Fondo blanco para la navbar */
+}
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+.navbar-nav .nav-link {
+    font-size: 20px;
+    color: #000000 !important; /* Color de texto oscuro para los enlaces */
+    transition: color 0.3s ease-in-out;
+}
+.navbar-nav .nav-link:hover {
+    color: rgb(255, 0, 195) !important; /* Color de texto al pasar el mouse */
+}
+.perfil-icon {
+    margin-left: 20px; /* Espacio a la izquierda del icono */
+}
+
+.perfil-icon .dropdown-menu {
+    background-color: #000000; /* Color de fondo del menú */
+    border: none;
+    min-width: 150px; 
+    text-align: center;
+}
+
+.perfil-icon .dropdown-item {
+    color: #333; /* Color del texto */
+    transition: background 0.3s ease-in-out;
+}
+
+.perfil-icon .dropdown-item:hover {
+    background-color: rgb(255, 0, 195); /* Color de fondo al pasar el mouse */
+    color: rgb(255, 0, 195);
+}
+
+
+.center{
+    display: flex;
+    margin-right: 50px;
+    justify-content: center;
+}
+
+.bt{
+    margin-top: 5px;
+    width: 200%;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.bt:hover{
+    border: 2px solid rgb(255, 0, 195);
+    color: rgb(0, 0, 0);
+}
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrar verticalmente */
+    margin-top: 50px;/* Asegurar que el contenedor ocupe toda la altura de la ventana */
+    position: relative;
+}
+
+.cart-container h1 {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.cart-item img {
+    max-width: 100px;
+    margin-right: 20px;
+}
+
+.cart-item-image {
+    max-width: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-price,
+.cart-item-quantity {
+    margin-left: 20px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    border-top: 2px solid #000;
+    margin-top: 20px;
+}
+
+.payment-method {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.payment-method button {
+    width: 30%;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #fc3294;
+    background-color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-align: center;
+    border: 1px solid #fc3294;
+    border-radius: 20px;
+}
+
+.payment-method button:hover {
+    color: white;
+    background-color: #d2116e;
+}
+
+.payment-method {
+    margin-top: 20px;
+}
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+
+
+.modal-content img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+#qr-code {
+    width: 150px;
+    margin-top: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.payment-summary-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-summary-content {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+}
+
+.payment-summary-content h2 {
+    margin-bottom: 20px;
+}
+
+.payment-summary-content ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.payment-summary-content ul li {
+    margin-bottom: 10px;
+}
+
+.payment-summary-content .total {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.payment-summary-content .close-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.alert {
+    display: none;
+    margin-top: 10px;
+}

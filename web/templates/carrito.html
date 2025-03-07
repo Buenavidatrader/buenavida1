@@ -1,0 +1,321 @@
+<!-- filepath: /c:/Users/Ambiente 105/Downloads/proyectouno-main/proyectouno-main/web/templates/carrito.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="{% static 'productos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+    <link rel="stylesheet" href="{% static 'carrito.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}"> <!-- Añadir esta línea -->
+    <style>
+        .modal-content {
+            text-align: center;
+        }
+        #qr-code {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container"> 
+            <a class="navbar-brand" href="{% url 'homes' %}" style="color: rgb(255, 0, 195);">BuenaVida</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'homes' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'productos' %}">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contáctanos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}"><i class="fas fa-user"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class='bx bxs-user'></i> <!-- Icono de usuario -->
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'perfil' %}">
+                                        <i class='bx bx-user'></i>Perfil de Usuario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'manual' %}">
+                                        <i class='bx bx-book'></i> Manual de Usuario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}" id="logout-link">
+                                        <i class='bx bx-exit'></i> Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'carrito' %}">
+                                <i class='bx bx-cart'></i> <!-- Icono de carrito de compras -->
+                                <span id="cart-count" class="badge bg-danger">0</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a lass="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- contenido -->
+    <div class="fondo">
+        <div class="titulo">
+            <h1>Carrito De Compras</h1>
+            <p>
+                Aquí puedes ver, modificar y confirmar tus productos antes de pagar
+            </p>
+        </div>
+    </div>
+
+    <!-- contenido -->
+    <div class="container cart-container">
+        <div id="cart-items" class="row"></div>
+        <div id="cart-total" class="cart-total"></div>
+        <div class="payment-method">
+            <button id="pay-button">Pagar</button>
+        </div>
+    </div>
+
+   
+
+    <!-- Modal -->
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <h2>Resumen de Compra</h2>
+            <p id="cart-summary"></p>
+            <img id="qr-code" src="{% static 'img/qr.png' %}" alt="Código QR">
+            <br>
+            <p id="user-message"></p> <!-- Añadir esta línea -->
+            <p id="confirmation-message" style="display: none; color: green;">Se ha enviado un mensaje a su correo.</p> <!-- Mover esta línea aquí -->
+            <div class="d-flex justify-content-center">
+                <div class="center">
+                    <button class="btn btn-primary btn-custom" onclick="closeModal()" style="width: 100%;
+                    display: inline-block;
+                    padding: 10px 20px;
+                    color: #ffffff;
+                    background-color: #fc3294;
+                    text-decoration: none;
+                    border-radius: 20px;
+                    transition: background-color 0.3s;
+                    text-align: center;
+                    border: 1px solid #fc3294;
+                    border-radius: 20px;">Cerrar</button>
+                    <form id="send-email-form" method="POST" action="{% url 'send_email' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="cart_summary" id="cart-summary-input">
+                        <input type="hidden" name="cart" id="cart-input"> <!-- Añadir este campo -->
+                        <button type="submit" class="bt">Enviar</button>
+                </div>
+                </form>
+            </div>
+            <p id="additional-text" style="margin-top: 20px;">Querido Cliente para completar su compra escanea el codigo QR que aparece en pantalla y completa la compra</p> <!-- Añadir esta línea -->
+        </div>
+    </div>
+
+    <div class="payment-summary-modal">
+        <div class="payment-summary-content">
+            <h2>Resumen de la compra</h2>
+            <ul></ul>
+            <div class="total"></div>
+            <button class="close-btn">Cerrar</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalContainer = document.getElementById('cart-total');
+            const payButton = document.getElementById('pay-button');
+            const paymentModal = document.getElementById('payment-modal');
+            const modalContent = document.querySelector('.modal-content');
+            const cartSummary = document.getElementById('cart-summary');
+            const qrCode = document.getElementById('qr-code');
+
+            function updateCart() {
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p>El carrito está vacío</p>';
+                    cartTotalContainer.innerHTML = '';
+                } else {
+                    cartItemsContainer.innerHTML = '';
+                    let total = 0;
+                    cart.forEach((item, index) => {
+                        total += item.price * item.quantity;
+                        cartItemsContainer.innerHTML += `
+                            <div class="cart-item">
+                                <img src="{% static 'img/${item.img}' %}" alt="${item.name}" class="cart-item-image">
+                                <div class="cart-item-details">
+                                    <h5>${item.name}</h5>
+                                    <p>Precio: $${item.price} COP</p>
+                                    <p>Cantidad: 
+                                        <button class="btn btn-secondary btn-sm" onclick="decrementQuantity(${index})">-</button>
+                                        ${item.quantity}
+                                        <button class="btn btn-secondary btn-sm" onclick="incrementQuantity(${index})">+</button>
+                                    </p>
+                                    <button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Eliminar</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    cartTotalContainer.innerHTML = `<h3>Total: $${total} COP</h3>`;
+                }
+            }
+
+            window.incrementQuantity = function(index) {
+                cart[index].quantity += 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            }
+
+            window.decrementQuantity = function(index) {
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity -= 1;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCart();
+                }
+            }
+
+            window.removeFromCart = function(index) {
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            }
+
+            payButton.addEventListener('click', () => {
+                if (cart.length > 0) {
+                    let total = 0;
+                    let summary = '';
+                    cart.forEach(item => {
+                        total += item.price * item.quantity;
+                        summary += `<p>${item.name} x ${item.quantity} - $${item.price * item.quantity} COP</p>`;
+                    });
+                    cartSummary.innerHTML = summary + `<h3>Total: $${total} COP</h3>`;
+                    qrCode.src = "{% static 'img/qr.png' %}"; // Asegúrate de tener la imagen del código QR en la ruta correcta
+                    paymentModal.style.display = 'block';
+                    modalContent.classList.remove('slide-up');
+                    modalContent.classList.add('slide-down');
+                }
+            });
+
+            window.closeModal = function() {
+                modalContent.classList.remove('slide-down');
+                modalContent.classList.add('slide-up');
+                setTimeout(() => {
+                    paymentModal.style.display = 'none';
+                }, 500); // Duración de la animación
+            }
+
+            window.sendWhatsApp = function() {
+                const phoneNumber = '3133260694'; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
+                const message = encodeURIComponent('Hola, aquí está mi comprobante de pago.');
+                const url = `https://wa.me/${phoneNumber}?text=${message}`;
+                window.open(url, '_blank');
+            }
+
+            updateCart();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const sendEmailForm = document.getElementById('send-email-form');
+            const cartSummaryInput = document.getElementById('cart-summary-input');
+            const cartInput = document.getElementById('cart-input'); // Obtener el campo oculto
+            const confirmationMessage = document.getElementById('confirmation-message'); // Obtener el elemento del mensaje de confirmación
+
+            sendEmailForm.addEventListener('submit', (event) => {
+                if (cart.length > 0) {
+                    let total = 0;
+                    let summary = '';
+                    cart.forEach(item => {
+                        total += item.price * item.quantity;
+                        summary += `${item.name} x ${item.quantity} - $${item.price * item.quantity} COP\n`;
+                    });
+                    summary += `\nTotal a pagar: $${total} COP\n\n`;
+                    summary += 'Enviar el comprobante de pago al WhatsApp: ';
+                    summary += 'https://wa.me/3133260694?text=Envia, aquí está mi comprobante de pago.';
+                    cartSummaryInput.value = summary;
+                    cartInput.value = JSON.stringify(cart); // Asignar el carrito al campo oculto
+
+                    // Guardar el historial de compra en localStorage
+                    const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+                    purchaseHistory.push({
+                        date: new Date().toLocaleString(),
+                        items: cart,
+                        total: total
+                    });
+                    localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+
+                    // Mostrar el mensaje de confirmación
+                    confirmationMessage.style.display = 'block';
+
+                    // Borrar el carrito
+                    localStorage.removeItem('cart');
+                } else {
+                    event.preventDefault();
+                    alert('El carrito está vacío.');
+                }
+            });
+
+            const logoutLink = document.getElementById('logout-link');
+
+            logoutLink.addEventListener('click', () => {
+                localStorage.removeItem('cart');
+            });
+        });
+    </script>
+
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>Sobre Nosotros</h3>
+            <p>En Buenavida, te ofrecemos una plataforma intuitiva y segura para comprar productos de calidad. Explora nuestro catálogo, elige tus productos favoritos.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Enlaces Rápidos</h3>
+            <ul>
+                <li><a href="{% url 'homes' %}">Inicio</a></li>
+                <li><a href="{% url 'productos' %}">Productos</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="{% url 'contacto' %}">Contáctanos</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contacto</h3>
+            <p>Email: info@buenavida.com</p>
+            <p>Teléfono: +123 456 7890</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 BuenaVida. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+    <script src="{% static '/js/homes.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static '/js/carrito.js' %}"></script>
+</body>
+</html>

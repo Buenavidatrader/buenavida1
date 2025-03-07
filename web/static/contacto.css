@@ -4,7 +4,10 @@
     padding: 0;
 }
 body {
-    background-color: #e3ecf5; /* Fondo claro para la página */
+	overflow-x: hidden;
+	background-color: hsla(0, 0%, 100%, 1);
+    background-image: radial-gradient(circle at 91% 11%, hsla(241.99999999999997, 100%, 88%, 0.66) 4.038772213247173%, transparent 37.2265767974114%), radial-gradient(circle at 66% 37%, hsla(191.91176470588238, 100%, 88%, 1) 0%, transparent 63.33640956108327%), radial-gradient(circle at 36% 87%, hsla(136.32352941176467, 100%, 88%, 1) 12.107536057085522%, transparent 63.33640956108327%);
+    font-family: 'Arial', sans-serif;
     font-family: 'Poppins', sans-serif;
     color: #333333; /* Color de texto oscuro para buena legibilidad */
     margin-top: 80px; /* Para que la navbar fija no tape contenido */
@@ -17,6 +20,7 @@ body {
 }
 /* Navbar */
 .navbar {
+	border-radius: 0 0 30px 30px;
     background-color: #ffffff !important; /* Fondo blanco para la navbar */
 }
 .navbar-brand {
@@ -25,6 +29,7 @@ body {
     font-weight: bold;
 }
 .navbar-nav .nav-link {
+	text-align: start;
     font-size: 20px;
     color: #000000 !important; /* Color de texto oscuro para los enlaces */
     transition: color 0.3s ease-in-out;
@@ -70,20 +75,19 @@ body {
 
 .titulo h1{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-shadow: 2px 2px 2px black ;
-    color: white;
+    text-shadow: 2px 2px 2px rgb(255, 255, 255) ;
+    color: rgb(255, 0, 195);
     font-size: 50px;
 }
 .titulo p{
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     width: 54%;
     text-align: center;
 }
 
 .fondo{
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/montaña.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -315,7 +319,12 @@ a:hover{
 	background-position: right;
 }
 
-
+.messages {
+    transition: opacity 1s ease-out;
+}
+.messages.hidden {
+    opacity: 0;
+}
 
 
 @media screen and (max-width: 1050px){
@@ -358,7 +367,6 @@ a:hover{
 }
 
 
-
 /* Footer */
 .footer {
     background-color: #ffffff;
@@ -369,13 +377,16 @@ a:hover{
 
 .footer-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Centra los elementos */
     flex-wrap: wrap;
+    text-align: center; /* Asegura que el contenido interno esté centrado */
+    gap: 40px; /* Espacio entre columnas */
 }
 
 .footer-column {
     max-width: 300px;
     margin: 20px;
+    text-align: center; /* Asegura que todo el contenido esté centrado */
 }
 
 .footer-column h3 {
@@ -384,14 +395,10 @@ a:hover{
     color: hotpink;
 }
 
-.footer-column p, .footer-column ul, .footer-column li {
-    font-size: 16px;
-    color: #000000;
-}
-
 .footer-column ul {
     list-style: none;
     padding: 0;
+    text-align: center; /* Centra la lista */
 }
 
 .footer-column li {
@@ -401,6 +408,7 @@ a:hover{
 .footer-column a {
     color: #000000;
     text-decoration: none;
+    display: inline-block; /* Evita que el ancho del enlace desborde */
 }
 
 .footer-column a:hover {
@@ -413,6 +421,10 @@ a:hover{
     color: #000000;
 }
 
+/* Evita el desbordamiento horizontal */
+
+
+/* Para dispositivos pequeños */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;

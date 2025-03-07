@@ -19,7 +19,8 @@ from django.urls import path
 from web import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.core.mail import send_mail
+from django.contrib.auth.views import PasswordResetDoneView, PasswordResetCompleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,7 +35,12 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('manual/', views.manual, name='manual'),
     path('carrito/', views.carrito, name='carrito'),
-    
+    path('cambiar/', views.cambiar, name='cambiar'),
+    path('restablecer/', views.restablecer, name='restablecer'),
+    path("cambiar/<uidb64>/<token>/", views.cambiar, name="cambiar"),
+    path('password_changed/', views.password_changed, name='password_changed'),
+    path('send_email/', views.send_email, name='send_email'),
+
 ]
 
 if settings.DEBUG:

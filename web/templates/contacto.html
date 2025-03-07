@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuenaVida - Contacto</title>
     <link rel="stylesheet" href="{% static 'contacto.css' %}">
+    <link rel="stylesheet" href="{% static 'productos.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
@@ -30,6 +31,11 @@
                                 <i class='bx bxs-user'></i> <!-- Icono de usuario -->
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'perfil' %}">
+                                        <i class='bx bx-user'></i>Perfil de Usuario
+                                    </a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center" href="{% url 'manual' %}">
                                         <i class='bx bx-book'></i> Manual de Usuario
@@ -70,7 +76,7 @@
 
     <!-- Formulario de contacto -->
 
-    <img class="wave" src="{% static '/img/rb_1036.png' %}">
+   
     <div class="containerr">
         <div class="img">
             <img src="{% static '/img/contactos.svg' %}">
@@ -78,7 +84,7 @@
         <div class="login-content">
             <form method="POST" action="{% url 'contacto' %}">
                 {% csrf_token %}
-                <img src="{% static '/img/avatar.png' %}">
+
                 <p class="title">Envianos tu mensaje</p>
                 {% if messages %}
                     <div class="messages">
@@ -120,12 +126,13 @@
     </div>
 
 
+
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer mt-5">
     <div class="footer-container">
         <div class="footer-column">
             <h3>Sobre Nosotros</h3>
-            <p>BuenaVida es una empresa dedicada a mejorar tu salud y bienestar.</p>
+            <p>En Buenavida, te ofrecemos una plataforma intuitiva y segura para comprar productos de calidad. Explora nuestro catálogo, elige tus productos favoritos.</p>
         </div>
         <div class="footer-column">
             <h3>Enlaces Rápidos</h3>
@@ -148,9 +155,23 @@
 </footer>
 
 
-
+    <script src="{% static 'js/carrito.js' %}"></script>    
     <script src="{% static '/js/contacto.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Script para ocultar el mensaje después de 3 segundos con animación -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var messages = document.querySelector('.messages');
+                if (messages) {
+                    messages.classList.add('hidden');
+                    setTimeout(function() {
+                        messages.style.display = 'none';
+                    }, 1000); // Espera a que la animación termine antes de ocultar el elemento
+                }
+            }, 3000);
+        });
+    </script>
 </body>
 </html>

@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'login.css' %}">
+    <style>
+        .alert {
+            opacity: 1;
+            transition: opacity 1s ease-out, max-height 1s ease-out;
+            max-height: 100px; /* Ajusta según el tamaño del contenido */
+            overflow: hidden;
+        }
+        .alert.fade-out {
+            opacity: 0;
+            max-height: 0;
+        }
+    </style>
 </head>
 <body>
     <img class="wave" src="{% static '/img/rb_1036.png' %}">
@@ -14,17 +26,23 @@
             <img src="{% static '/img/diseño.png' %}">
         </div>
         <div class="login-content">
-            <form method="POST" action="{% url 'login' %}">
+            <form method="POST" action="{% url 'login' %}" onsubmit="showWelcomeMessage(event)">
                 {% csrf_token %}
-                <img src="{% static '/img/avatar.png' %}">
                 <h2 class="title">Bienvenidos</h2>
+                {% if messages %}
+                    <div class="alert" id="alert">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <div class="input-div one">
                    <div class="i">
                         <i class="fas fa-user"></i>
                    </div>
                    <div class="div">
                         <h5>Nombre de Usuario</h5>
-                        <input type="text" class="input" name="username" required>
+                        <input type="text" class="input" name="username" id="username" required>
                    </div>
                 </div>
                 <div class="input-div pass">
@@ -36,11 +54,27 @@
                         <input type="password" class="input" name="password" required>
                    </div>
                 </div>
-                <a href="{% url 'homes' %}"><input type="submit" class="btn" value="Iniciar Sesion"></a>
+                
+                <div class="re"><a href="{% url 'restablecer' %}">Recuperar Contraseña</a></div>
+                <input type="submit" class="btn" value="Iniciar Sesion">
                 <a href="{% url 'registrar' %}"><input type="button" class="btn1" value="Registrarse"></a>
             </form>
         </div>
     </div>
     <script src="{% static '/js/login.js' %}"></script>
+    <script>
+       
+
+        // Función para ocultar el mensaje de alerta después de 4 segundos
+        window.onload = function() {
+            var alertBox = document.getElementById('alert');
+            if (alertBox) {
+                setTimeout(function() {
+                    alertBox.classList.add('fade-out');
+                }, 4000);
+            }
+        }
+    </script>
 </body>
 </html>
+

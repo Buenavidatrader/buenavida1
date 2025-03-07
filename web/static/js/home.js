@@ -15,3 +15,7 @@ document.getElementById("loginButton").addEventListener("click", function() {
 document.getElementById("sideLoginButton").addEventListener("click", function() {
     window.location.href = "{% url 'inicio' %}";
 });
+
+
+//footer
+

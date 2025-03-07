@@ -4,7 +4,9 @@
     padding: 0;
 }
 body {
-    background-color: #e3ecf5; /* Fondo claro para la página */
+    background-color: hsla(329, 98%, 66%, 1);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1799 1799' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"), radial-gradient(circle at 94% 95%, hsla(60.00000000000003, 88%, 68%, 0.72) 3%, transparent 76%), radial-gradient(circle at 89% 34%, hsla(153, 96%, 51%, 1) 1%, transparent 86%), radial-gradient(circle at 86% 50%, hsla(208, 80%, 65%, 1) 7%, transparent 76%), radial-gradient(circle at 89% 79%, hsla(138, 76%, 53%, 1) 7%, transparent 87%), radial-gradient(circle at 15% 44%, hsla(254, 74%, 80%, 1) 15%, transparent 81%), radial-gradient(circle at 99% 20%, hsla(325, 88%, 92%, 1) 1%, transparent 68%);
+    background-blend-mode: overlay, normal, normal, normal, normal, normal, normal;
     font-family: 'Poppins', sans-serif;
     color: #333333; /* Color de texto oscuro para buena legibilidad */
     margin-top: 80px; /* Para que la navbar fija no tape contenido */
@@ -14,6 +16,7 @@ body {
 
 /* Navbar */
 .navbar {
+    border-radius: 0 0 30px 30px;
     background-color: #ffffff !important; /* Fondo blanco para la navbar */
 }
 .navbar-brand {
@@ -60,28 +63,47 @@ body {
 }
 
 .titulo h1{
+    margin-top: 50px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-shadow: 2px 2px 2px black ;
-    color: white;
+    text-shadow: 2px 2px 2px rgb(255, 255, 255) ;
+    color: rgb(255, 0, 195);
     font-size: 50px;
 }
 .titulo p{
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     width: 54%;
     text-align: center;
 }
 
+
+
 .fondo{
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/montaña.jpg');
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     height: 50vh;
 }
 
+/* fin de menu */
+
+
+
+/* productos */
+
+.titulos{
+    margin-left: 25px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.titulos h3{
+    margin-top: 53px;
+    font-size: 30px;
+}
+
+.titulos p{
+    margin-top: 5px;
+}
 
 
 
@@ -147,9 +169,7 @@ body {
     transform: translateX(0);
 }
 
-.se{
-    background-color: rgba(0, 0, 0, 0.1);;
-}
+
 
 .item img {
     width: 180px;
@@ -269,34 +289,52 @@ body {
  
 
 
-
 /* Footer */
 .footer {
+    margin-left: 100px;
     background-color: #ffffff;
-    color: rgb(0, 0, 0);
     padding: 40px 20px;
-    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
+/* Contenedor del footer */
 .footer-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0d7dd;
 }
 
+/* Columnas del footer */
 .footer-column {
-    max-width: 300px;
-    margin: 20px;
+    flex: 1;
+    min-width: 200px;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px); /* Inicia 20px más abajo */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transición suave */
+}
+
+/* Clase para activar la animación */
+.footer-column.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .footer-column h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: hotpink;
+    font-size: 1.25rem;
+    color: rgb(255, 0, 195);
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-.footer-column p, .footer-column ul, .footer-column li {
-    font-size: 16px;
+.footer-column p {
+    font-size: 0.9rem;
+    line-height: 1.6;
     color: #000000;
 }
 
@@ -305,28 +343,66 @@ body {
     padding: 0;
 }
 
-.footer-column li {
+.footer-column ul li {
     margin-bottom: 10px;
 }
 
-.footer-column a {
-    color: #000000;
-    text-decoration: none;
+.footer-column ul li a {
+    list-style: none;
+    color: black;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
 }
 
-.footer-column a:hover {
-    color: hotpink;
+.footer-column ul li a:hover {
+    color: rgb(255, 0, 195);
 }
 
+.footer-column ul li a {
+    list-style: none;
+    color: black;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+
+
+/* Sección inferior del footer */
 .footer-bottom {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #000000;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.85rem;
+    color: #5a4a4f;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px); /* Inicia 20px más abajo */
+    transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s; /* Retraso para la animación */
 }
 
+/* Clase para activar la animación */
+.footer-bottom.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efecto hover en el texto del footer-bottom */
+.footer-bottom p {
+    transition: color 0.3s ease;
+}
+
+.footer-bottom p:hover {
+    color: #8a5a7d;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .footer-container {
+    .footer-container {margin-right: 100px;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+    }
+
+    .footer-column ul li a::before {
+        display: none;
     }
 }

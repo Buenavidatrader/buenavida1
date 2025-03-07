@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Sobre Nosotros</h3>
+                <p>En Buenavida, te ofrecemos una plataforma intuitiva y segura para comprar productos de calidad. Explora nuestro catálogo, elige tus productos favoritos.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="{% url 'homes' %}">Inicio</a></li>
+                    <li><a href="{% url 'productos' %}">Productos</a></li>
+                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                    <li><a href="{% url 'contacto' %}">Contáctanos</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Email: info@buenavida.com</p>
+                <p>Teléfono: +123 456 7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BuenaVida. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    // Selecciona las columnas y el footer-bottom
+    const footerColumns = document.querySelectorAll(".footer-column");
+    const footerBottom = document.querySelector(".footer-bottom");
+
+    // Configura el Intersection Observer
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible"); // Añade la clase "visible"
+                }
+            });
+        },
+        {
+            threshold: 0.2, // Activa la animación cuando el 20% del elemento es visible
+        }
+    );
+
+    // Observa cada columna
+    footerColumns.forEach((column) => {
+        observer.observe(column);
+    });
+
+    // Observa el footer-bottom
+    observer.observe(footerBottom);
+});
+    </script>
+
+    <style>
+        /* Footer */
+.footer {
+    margin-left: 100px;
+    background-color: #ffffff;
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+/* Contenedor del footer */
+.footer-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0d7dd;
+}
+
+/* Columnas del footer */
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px); /* Inicia 20px más abajo */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transición suave */
+}
+
+/* Clase para activar la animación */
+.footer-column.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer-column h3 {
+    font-size: 1.25rem;
+    color: rgb(255, 0, 195);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-column p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #000000;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    list-style: none;
+    color: black;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: rgb(255, 0, 195);
+}
+
+.footer-column ul li a {
+    list-style: none;
+    color: black;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+
+
+/* Sección inferior del footer */
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.85rem;
+    color: #5a4a4f;
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px); /* Inicia 20px más abajo */
+    transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s; /* Retraso para la animación */
+}
+
+/* Clase para activar la animación */
+.footer-bottom.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efecto hover en el texto del footer-bottom */
+.footer-bottom p {
+    transition: color 0.3s ease;
+}
+
+.footer-bottom p:hover {
+    color: #8a5a7d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {margin-right: 100px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column ul li a::before {
+        display: none;
+    }
+}
+    </style>
+</body>
+</html>

@@ -5,6 +5,9 @@
 }
 
 body{
+	background-color: hsla(0, 0%, 100%, 1);
+    background-image: radial-gradient(circle at 32% 16%, hsla(14.000000000000004, 100%, 64%, 0.33) 17.647148063137625%, transparent 61.5109675345299%), radial-gradient(circle at 75% 1%, hsla(247.99999999999997, 100%, 63%, 0.3) 11.26645584295136%, transparent 63.69587993071477%);
+    background-blend-mode: multiply, multiply;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
 }
@@ -53,7 +56,7 @@ form{
 
 .login-content h2{
 	margin: 15px 0;
-	color: #333;
+	color: #ffffff;
 	text-transform: uppercase;
 	font-size: 2.9rem;
 }
@@ -72,7 +75,7 @@ form{
 }
 
 .i{
-	color: #d9d9d9;
+	color: #000000;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -92,7 +95,7 @@ form{
 	left: 10px;
 	top: 50%;
 	transform: translateY(-50%);
-	color: #999;
+	color: #575757;
 	font-size: 18px;
 	transition: .3s;
 }
@@ -139,7 +142,7 @@ form{
 	background: none;
 	padding: 0.5rem 0.7rem;
 	font-size: 1.2rem;
-	color: #555;
+	color: #000000;
 	font-family: 'poppins', sans-serif;
 }
 
@@ -151,13 +154,13 @@ a{
 	display: block;
 	text-align: right;
 	text-decoration: none;
-	color: #999;
+	color: #000000;
 	font-size: 0.9rem;
 	transition: .3s;
 }
 
 a:hover{
-	color: #38d39f;
+	color: #53bb72;
 }
 
 .btn{

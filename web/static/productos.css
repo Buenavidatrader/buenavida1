@@ -4,7 +4,9 @@
     padding: 0;
 }
 body {
-    background-color: #e3ecf5; /* Fondo claro para la página */
+    background-color: hsla(0, 0%, 100%, 1);
+    background-image: radial-gradient(circle at 32% 16%, hsla(14.000000000000004, 100%, 64%, 0.33) 17.647148063137625%, transparent 61.5109675345299%), radial-gradient(circle at 75% 1%, hsla(247.99999999999997, 100%, 63%, 0.3) 11.26645584295136%, transparent 63.69587993071477%);
+    background-blend-mode: multiply, multiply;
     font-family: 'Poppins', sans-serif;
     color: #333333; /* Color de texto oscuro para buena legibilidad */
     margin-top: 80px; /* Para que la navbar fija no tape contenido */
@@ -14,6 +16,7 @@ body {
 
 /* Navbar */
 .navbar {
+    border-radius: 0 0 30px 30px;
     background-color: #ffffff !important; /* Fondo blanco para la navbar */
 }
 .navbar-brand {
@@ -60,25 +63,33 @@ body {
 }
 
 .titulo h1{
+    margin-top: 50px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-shadow: 2px 2px 2px black ;
-    color: white;
+    text-shadow: 2px 2px 2px rgb(255, 255, 255) ;
+    color: rgb(255, 0, 195);
     font-size: 50px;
 }
 .titulo p{
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     width: 54%;
     text-align: center;
 }
 
+
+@media(max-width: 768px){
+    .titulo h1{
+        margin-top: 70px;
+        font-size: 40px;
+    }
+    .titulo p{
+        width: 80%;
+    }
+}
+
+
 .fondo{
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/img/montaña.jpg');
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     height: 50vh;
 }
 
@@ -86,7 +97,8 @@ body {
 
 
 
-/* prodcutos */
+/* productos */
+
 .titulos{
     margin-left: 25px;
     display: flex;
@@ -103,9 +115,6 @@ body {
     margin-top: 5px;
 }
 
-.col{
-    background-color: rgba(0, 0, 0, 0.1);
-}
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -122,7 +131,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
@@ -157,28 +166,19 @@ body {
     color: black;
 }
 
-/* Botones */
-.card button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    font-size: 14px;
-    color: #fff;
-    background-color: rgb(255, 0, 195);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+
 
 .botones .bt2 {
+    border-radius: 20px;
+    padding: 10px;
     background-color: white;
     color: #333;
     border: 1px solid #ddd;
 }
 
 .card button:hover {
-    background-color: rgb(255, 0, 195);
-    color: white;
+    border: 2px solid rgb(255, 0, 195);
+    color: rgb(0, 0, 0);
 }
 
 /* Paginación */
@@ -209,13 +209,24 @@ body {
 }
 
 
+/* animacion  */
 
+/* Animación de entrada */
+.card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
 
-
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 
 /* Footer */
 .footer {
+    margin-top: 50px;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     padding: 40px 20px;

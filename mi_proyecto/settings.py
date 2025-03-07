@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h-=8#s1%c7+fz61n&r$4j15p(10g^5n*nte=62t)qj3ma&$gio'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # o False en producción
 
 ALLOWED_HOSTS = []
 
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web'
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,6 +136,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jsbplaza@gmail.com'
 EMAIL_HOST_PASSWORD = 'hjmv mvue npxj pxql'  # Reemplaza con la contraseña de aplicación generada
 
+
+
+
+        
 
 # Configuración de mensajes
 from django.contrib.messages import constants as messages

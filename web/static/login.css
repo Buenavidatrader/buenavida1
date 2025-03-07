@@ -5,6 +5,9 @@
 }
 
 body{
+	background-color: hsla(0, 0%, 100%, 1);
+    background-image: radial-gradient(circle at 32% 16%, hsla(14.000000000000004, 100%, 64%, 0.33) 17.647148063137625%, transparent 61.5109675345299%), radial-gradient(circle at 75% 1%, hsla(247.99999999999997, 100%, 63%, 0.3) 11.26645584295136%, transparent 63.69587993071477%);
+    background-blend-mode: multiply, multiply;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
 }
@@ -53,7 +56,7 @@ form{
 
 .login-content h2{
 	margin: 15px 0;
-	color: #333;
+	color: #ffffff;
 	text-transform: uppercase;
 	font-size: 2.9rem;
 }
@@ -205,7 +208,13 @@ a:hover{
 	background-position: right;
 }
 
+.re a{
+	color: #fc3294;
+}
 
+.re a:hover{
+	color: #d61572;
+}
 
 
 @media screen and (max-width: 1050px){

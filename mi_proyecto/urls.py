@@ -34,13 +34,16 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('perfil/', views.perfil, name='perfil'),
     path('manual/', views.manual, name='manual'),
+    path('historial/', views.historial_view, name='historial'),
     path('carrito/', views.carrito, name='carrito'),
     path('cambiar/', views.cambiar, name='cambiar'),
     path('restablecer/', views.restablecer, name='restablecer'),
     path("cambiar/<uidb64>/<token>/", views.cambiar, name="cambiar"),
     path('password_changed/', views.password_changed, name='password_changed'),
     path('send_email/', views.send_email, name='send_email'),
-
+    path('save_purchase_history/', views.save_purchase_history, name='save_purchase_history'),
+    path('eliminar_compra/<int:purchase_id>/', views.eliminar_compra, name='eliminar_compra'),
+    path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
 ]
 
 if settings.DEBUG:

@@ -62,6 +62,10 @@ body {
     height: 60vh;
 }
 
+.fondo{
+    margin-top: 50px;
+}
+
 .titulo h1{
     margin-top: 50px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

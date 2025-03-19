@@ -11,16 +11,20 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h-=8#s1%c7+fz61n&r$4j15p(10g^5n*nte=62t)qj3ma&$gio'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # o False en producción
@@ -29,7 +33,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-import os
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,11 +82,10 @@ WSGI_APPLICATION = 'mi_proyecto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': BASE_DIR / env('DB_NAME'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -122,6 +125,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -130,11 +138,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'jsbplaza@gmail.com'
-EMAIL_HOST_PASSWORD = 'hjmv mvue npxj pxql'  # Reemplaza con la contraseña de aplicación generada
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Reemplaza con la contraseña de aplicación generada
 
 
 

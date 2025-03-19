@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container"> 
-            <a class="navbar-brand" href="{% url 'homes' %}" style="color: rgb(255, 0, 195);">BuenaVida</a>
+            <a class="navbar-brand" href="{% url 'homes' %}">
+                <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -42,7 +43,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'historial' %}">
+                                        <i class='bx bx-pie-chart'></i> Historial de Compras
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}" id="logout-link">
                                         <i class='bx bx-exit'></i> Cerrar sesión
                                     </a>
                                 </li>
@@ -51,16 +57,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'carrito' %}">
                                 <i class='bx bx-cart'></i> <!-- Icono de carrito de compras -->
-                                <span id="cart-count" class="badge bg-danger">0</span>
+                                <span id="cart-count" class="badge bg-danger">0</span> <!-- Contador del carrito -->
                             </a>
                         </li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registrar' %}">Registrarse</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
+    
 
     <!-- contenido -->
     <div class="fondo">
@@ -124,5 +132,55 @@
     <script src="{% static 'js/carrito.js' %}"></script>
     <script src="{% static 'js/producto.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.add-to-cart');
+            const cartCountElement = document.getElementById('cart-count');
+
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalCount;
+            }
+
+            function handleAddToCart(event) {
+                const button = event.currentTarget;
+                const productId = button.getAttribute('data-id');
+                const productName = button.getAttribute('data-name');
+                const productPrice = parseFloat(button.getAttribute('data-price'));
+                const productImg = button.closest('.card').querySelector('img').getAttribute('src');
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingProductIndex = cart.findIndex(item => item.id === productId);
+
+                if (existingProductIndex !== -1) {
+                    cart[existingProductIndex].quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        img: productImg,
+                        quantity: 1
+                    });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                alert('Producto agregado al carrito');
+            }
+
+            buttons.forEach(button => {
+                // Eliminar cualquier evento de clic duplicado
+                button.removeEventListener('click', handleAddToCart);
+
+                // Agregar el evento de clic
+               
+            });
+
+            // Inicializar el contador del carrito al cargar la página
+            updateCartCount();
+        });
+    </script>
 </body>
 </html>

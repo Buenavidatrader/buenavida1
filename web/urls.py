@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, carrito, login_view, registrar_view, homes, productos, nosotros, contacto, perfil, manual, logout_view, carrito_view, CustomPasswordResetView, CustomPasswordResetConfirmView, procesar_pago, send_email, HomeView
+from .views import home, carrito, login_view, registrar_view, homes, productos, nosotros, contacto, perfil, manual, logout_view, carrito_view, CustomPasswordResetView, CustomPasswordResetConfirmView, procesar_pago, send_email, HomeView, add_to_cart
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetCompleteView
 from . import views
 
@@ -25,5 +25,8 @@ urlpatterns = [
     path('api/increment_quantity/', views.increment_quantity, name='increment_quantity'),
     path('api/decrement_quantity/', views.decrement_quantity, name='decrement_quantity'),
     path('api/remove_from_cart/', views.remove_from_cart, name='remove_from_cart'),
-   
+    path('save_purchase_history/', views.save_purchase_history, name='save_purchase_history'),
+    path('historial/', views.historial_view, name='historial'),
+    path('eliminar_compra/<int:purchase_id>/', views.eliminar_compra, name='eliminar_compra'),
+    path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
 ]

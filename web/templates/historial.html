@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Compras</title>
+    <link rel="stylesheet" href="{% static 'historial.css' %}">
+    <link rel="stylesheet" href="{% static 'productos.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container"> 
+            <a class="navbar-brand" href="{% url 'homes' %}">
+                <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'homes' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'productos' %}">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contáctanos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}"><i class="fas fa-user"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class='bx bxs-user'></i> <!-- Icono de usuario -->
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'perfil' %}">
+                                        <i class='bx bx-user'></i>Perfil de Usuario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'manual' %}">
+                                        <i class='bx bx-book'></i> Manual de Usuario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'historial' %}">
+                                        <i class='bx bx-pie-chart'></i> Historial de Compras
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}" id="logout-link">
+                                        <i class='bx bx-exit'></i> Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'carrito' %}">
+                                <i class='bx bx-cart'></i> <!-- Icono de carrito de compras -->
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registrar' %}">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <style>
+        .h {
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fondo{
+            margin-top: 30px;
+        }
+    </style>
+    
+    <!-- Contenido -->
+    <div class="fondo">
+        <div class="titulo">
+            <h1>Historial de Compras</h1>
+            <p>
+                Consulta tus compras anteriores, revisa detalles y haz seguimiento a tus pedidos fácilmente.
+            </p>
+        </div>
+    </div>
+<div class="h"> 
+    <div class="container mt-5">
+        
+        {% if purchase_history %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Artículos</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acciones</th> <!-- Nueva columna para acciones -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in purchase_history %}
+                        <tr>
+                            <td>{{ purchase.date }}</td>
+                            <td>
+                                <ul>
+                                    {% for item in purchase.items.all %}
+                                        <li>{{ item.name }} x {{ item.quantity }} - ${{ item.total_price }} COP</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>${{ purchase.total }} COP</td>
+                            <td>
+                                {% if purchase.status == "pendiente" %}
+                                    <button class="btn btn-warning" disabled>Pendiente de confirmación</button>
+                                {% else %}
+                                    {{ purchase.status }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form method="post" action="{% url 'eliminar_compra' purchase.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No tienes compras en tu historial.</p>
+        {% endif %}
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Sobre Nosotros</h3>
+                <p>En Buenavida, te ofrecemos una plataforma intuitiva y segura para comprar productos de calidad. Explora nuestro catálogo, elige tus productos favoritos.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="{% url 'homes' %}">Inicio</a></li>
+                    <li><a href="{% url 'productos' %}">Productos</a></li>
+                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                    <li><a href="{% url 'contacto' %}">Contáctanos</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Email: info@buenavida.com</p>
+                <p>Teléfono: +123 456 7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BuenaVida. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+   
+    <script src="{% static 'js/producto.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

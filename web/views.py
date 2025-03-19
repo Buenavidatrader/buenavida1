@@ -17,16 +17,63 @@ from .models import Producto, CustomUser, CartItem, PurchaseHistory, Purchase, P
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import logout
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Pedido
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+import logging
+
+logger = logging.getLogger(__name__)
+
+@login_required
+def save_purchase_history(request):
+    if request.method == 'POST':
+        cart_summary = request.POST.get('cart_summary')
+        cart = json.loads(request.POST.get('cart'))
+        total = request.POST.get('total')
+        user_email = request.user.email
+        company_email = 'jsbplaza@gmail.com'  # Reemplaza con el correo de la empresa
+
+        # Enviar correo al usuario y a la empresa
+        send_mail(
+            'Resumen de tu compra en BuenaVida',
+            cart_summary,
+            'jsbplaza@gmail.com',  # Reemplaza con tu dirección de correo real
+            [user_email, company_email],  # Lista de destinatarios
+            fail_silently=False,
+        )
+
+        # Guardar el historial de compra en la base de datos
+        purchase = Purchase.objects.create(user=request.user, total=total)
+        for item in cart:
+            PurchaseItem.objects.create(
+                purchase=purchase,
+                name=item['name'],
+                quantity=item['quantity'],
+                total_price=item['price'] * item['quantity']
+            )
+
+        return JsonResponse({'message': 'Compra guardada y correos enviados correctamente.'})
+
+    return JsonResponse({'error': 'Método no permitido.'}, status=405)
+
+@login_required
+def purchase_history(request):
+    purchase_history = PurchaseHistory.objects.filter(user=request.user)
+    for purchase in purchase_history:
+        for item in purchase.items:
+            item['total_price'] = item['price'] * item['quantity']
+    return render(request, 'historial.html', {'purchase_history': purchase_history})
 
 def home(request):
     return render(request, 'home.html')
 
-
-
+def historial(request):
+    return render(request, 'historial.html')
 
 def carrito(request):
     return render(request, 'carrito.html')
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -143,8 +190,6 @@ def logout_view(request):
 
     return redirect('home')  # Redirige a la página de inicio
 
-
-
 @csrf_protect
 def my_view(request):
     return render(request, 'my_template.html', {})
@@ -229,32 +274,28 @@ def cart_view(request):
     cart_items = CartItem.objects.filter(user=request.user)
     return render(request, 'carrito.html', {'cart_items': cart_items})
 
-@login_required
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from .models import CartItem
+from django.views.decorators.http import require_POST
+
+@csrf_exempt
+@require_POST
 def add_to_cart(request):
-    if request.method == 'POST':
-        product_name = request.POST.get('product_name')
-        quantity = int(request.POST.get('quantity'))
-        price = float(request.POST.get('price'))
-        image = request.POST.get('image')
+    try:
+        data = json.loads(request.body)
+        product_id = data.get('product_id')
+        product_name = data.get('product_name')
+        quantity = data.get('quantity')
+        price = data.get('price')
 
-        cart_item, created = CartItem.objects.get_or_create(
-            user=request.user,
-            product_name=product_name,
-            defaults={'quantity': quantity, 'price': price, 'image': image}
-        )
-
-        if not created:
-            cart_item.quantity += quantity
-            cart_item.save()
+        # Lógica para agregar el producto al carrito
+        # ...
 
         return JsonResponse({'status': 'success'})
-
-@login_required
-def remove_from_cart(request):
-    if request.method == 'POST':
-        product_name = request.POST.get('product_name')
-        CartItem.objects.filter(user=request.user, product_name=product_name).delete()
-        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
 
 @csrf_exempt
 def eliminar_producto_historial(request):
@@ -277,6 +318,42 @@ def eliminar_producto_historial(request):
         else:
             return JsonResponse({'success': False, 'error': 'Índice de producto no válido.'})
     return JsonResponse({'success': False, 'error': 'Método no permitido.'})
+
+class CheckoutView(LoginRequiredMixin, View):
+    def post(self, request):
+        cart = request.POST.get('cart')
+        total = request.POST.get('total')
+        detalles = request.POST.get('detalles')
+
+        pedido = Pedido.objects.create(
+            usuario=request.user,
+            total=total,
+            detalles=detalles
+        )
+
+        # Limpiar el carrito después de la compra
+        request.session['cart'] = []
+
+        return redirect('success')
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Purchase
+
+@login_required
+def historial_view(request):
+    purchase_history = Purchase.objects.filter(user=request.user)
+    return render(request, 'historial.html', {'purchase_history': purchase_history})
+
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Purchase
+
+@login_required
+def eliminar_compra(request, purchase_id):
+    purchase = get_object_or_404(Purchase, id=purchase_id, user=request.user)
+    purchase.delete()
+    return redirect('historial')
 
 
 

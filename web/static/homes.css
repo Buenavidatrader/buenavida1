@@ -11,6 +11,7 @@ body {
     margin-top: 80px; /* Para que la navbar fija no tape contenido */
     background-size: cover;
     background-attachment: scroll; /* La imagen se desplaza con el contenido */
+
 }
 
 /* Navbar */
@@ -31,7 +32,7 @@ body {
     transition: color 0.3s ease-in-out;
 }
 .navbar-nav .nav-link:hover {
-    color:#ff307c !important; 
+    color: rgb(255, 0, 195); 
 }
 .perfil-icon {
     margin-left: 20px; /* Espacio a la izquierda del icono */
@@ -65,9 +66,7 @@ body {
     animation: fadeIn 2s ease-in-out;
 }
 
-.t2{
-    margin-top: 50px;
-}
+
 
 .titulo h1{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -77,34 +76,20 @@ body {
 }
 .titulo h2{
     margin-left: 10px;
-    font-family:'Times New Roman', Times, serif;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-shadow: 2px 2px 2px rgb(255, 255, 255) ;
     color: rgb(255, 0, 195);
-    font-size: 40px;
+    font-size: 50px;
 }
 
 
 .fondo{
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
+    margin-top: 50px;
 }
 
 /* productos */
 
-.titulos{
-    margin-left: 25px;
-    display: flex;
-    justify-content: start;
-    flex-direction: column;
-    font-family:Arial, Helvetica, sans-serif;
-}
-.titulos h3{
-    margin-top: 53px;
-    font-size: 30px;
-}
+
 
 .container {
     display: grid;
@@ -211,31 +196,6 @@ body {
 }
 
 /* hero */
-
-
-.boton{
-	display: block;
-	width: 22%;
-	height: 50px;
-	border-radius: 25px;
-	outline: none;
-	border: none;
-	background-color: #ffffff;
-	background-size: 200%;
-	font-size: 1.2rem;
-	color: #fc3294;
-	font-family: 'Poppins', sans-serif;
-	text-transform: uppercase;
-	margin: 1rem 0;
-	cursor: pointer;
-	transition: .5s;
-    border: #d2116e 1px solid;
-}
-.boton:hover{
-	color: white;
-    background-color: #d2116e;
-	background-position: right;
-}
 
 
 .t2{

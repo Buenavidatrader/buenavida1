@@ -14,7 +14,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container"> 
-            <a class="navbar-brand" href="" style="color: rgb(255, 0, 195);">BuenaVida</a>
+            <a class="navbar-brand" href="">
+                <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,10 +74,8 @@
     <div class="fondo">
         <div class="titulo">
             <div class="t2">
-                <h1>Bienvenido a </h1>
-                <h2>BuenaVida</h2>
+                <h1>Bienvenido</h1>
             </div>
-            <h1> {{ user.username }}</h1>
         </div>  
     </div>
 

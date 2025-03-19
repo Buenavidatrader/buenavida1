@@ -23,10 +23,11 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container"> 
-            <a class="navbar-brand" href="{% url 'homes' %}" style="color: rgb(255, 0, 195);">BuenaVida</a>
+            <a class="navbar-brand" href="{% url 'homes' %}">
+                <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,6 +55,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'historial' %}">
+                                        <i class='bx bx-pie-chart'></i> Historial de Compras
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}" id="logout-link">
                                         <i class='bx bx-exit'></i> Cerrar sesión
                                     </a>
@@ -63,11 +69,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'carrito' %}">
                                 <i class='bx bx-cart'></i> <!-- Icono de carrito de compras -->
-                                <span id="cart-count" class="badge bg-danger">0</span>
                             </a>
                         </li>
                     {% else %}
-                        <li class="nav-item"><a lass="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registrar' %}">Registrarse</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -93,8 +99,6 @@
         </div>
     </div>
 
-   
-
     <!-- Modal -->
 
     <div id="payment-modal" class="modal">
@@ -104,7 +108,10 @@
             <img id="qr-code" src="{% static 'img/qr.png' %}" alt="Código QR">
             <br>
             <p id="user-message"></p> <!-- Añadir esta línea -->
-            <p id="confirmation-message" style="display: none; color: green;">Se ha enviado un mensaje a su correo.</p> <!-- Mover esta línea aquí -->
+            <p id="confirmation-message" style="display: none; color: green; font-size: 1.2em; font-weight: bold; margin-top: 20px; text-align: center; background-color: #e0ffe0; padding: 10px; border-radius: 10px;">
+                <i class="bx bx-check-circle" style="color: green; margin-right: 10px;"></i>
+                Se ha enviado un mensaje a su correo.
+            </p>
             <div class="d-flex justify-content-center">
                 <div class="center">
                     <button class="btn btn-primary btn-custom" onclick="closeModal()" style="width: 100%;
@@ -118,13 +125,14 @@
                     text-align: center;
                     border: 1px solid #fc3294;
                     border-radius: 20px;">Cerrar</button>
-                    <form id="send-email-form" method="POST" action="{% url 'send_email' %}">
+                    <form id="send-email-form" method="POST" action="{% url 'save_purchase_history' %}">
                         {% csrf_token %}
                         <input type="hidden" name="cart_summary" id="cart-summary-input">
-                        <input type="hidden" name="cart" id="cart-input"> <!-- Añadir este campo -->
+                        <input type="hidden" name="cart" id="cart-input">
+                        <input type="hidden" name="total" id="total-input">
                         <button type="submit" class="bt">Enviar</button>
+                    </form>
                 </div>
-                </form>
             </div>
             <p id="additional-text" style="margin-top: 20px;">Querido Cliente para completar su compra escanea el codigo QR que aparece en pantalla y completa la compra</p> <!-- Añadir esta línea -->
         </div>
@@ -138,7 +146,6 @@
             <button class="close-btn">Cerrar</button>
         </div>
     </div>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -162,7 +169,6 @@
                         total += item.price * item.quantity;
                         cartItemsContainer.innerHTML += `
                             <div class="cart-item">
-                                <img src="{% static 'img/${item.img}' %}" alt="${item.name}" class="cart-item-image">
                                 <div class="cart-item-details">
                                     <h5>${item.name}</h5>
                                     <p>Precio: $${item.price} COP</p>
@@ -241,6 +247,7 @@
             const sendEmailForm = document.getElementById('send-email-form');
             const cartSummaryInput = document.getElementById('cart-summary-input');
             const cartInput = document.getElementById('cart-input'); // Obtener el campo oculto
+            const totalInput = document.getElementById('total-input'); // Obtener el campo oculto
             const confirmationMessage = document.getElementById('confirmation-message'); // Obtener el elemento del mensaje de confirmación
 
             sendEmailForm.addEventListener('submit', (event) => {
@@ -256,6 +263,7 @@
                     summary += 'https://wa.me/3133260694?text=Envia, aquí está mi comprobante de pago.';
                     cartSummaryInput.value = summary;
                     cartInput.value = JSON.stringify(cart); // Asignar el carrito al campo oculto
+                    totalInput.value = total; // Asignar el total al campo oculto
 
                     // Guardar el historial de compra en localStorage
                     const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
@@ -271,6 +279,11 @@
 
                     // Borrar el carrito
                     localStorage.removeItem('cart');
+
+                    // Redirigir al historial de pedidos
+                    setTimeout(() => {
+                        window.location.href = "{% url 'historial' %}";
+                    }, 2000); // Esperar 2 segundos antes de redirigir
                 } else {
                     event.preventDefault();
                     alert('El carrito está vacío.');
@@ -284,8 +297,6 @@
             });
         });
     </script>
-
-
 
 <!-- Footer -->
 <footer class="footer">

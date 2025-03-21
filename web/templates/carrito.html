@@ -147,6 +147,8 @@
         </div>
     </div>
 
+    
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -267,8 +269,10 @@
 
                     // Guardar el historial de compra en localStorage
                     const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+                    const now = new Date();
+                    const formattedDate = now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
                     purchaseHistory.push({
-                        date: new Date().toLocaleString(),
+                        date: formattedDate,
                         items: cart,
                         total: total
                     });
@@ -284,6 +288,7 @@
                     setTimeout(() => {
                         window.location.href = "{% url 'historial' %}";
                     }, 2000); // Esperar 2 segundos antes de redirigir
+                    
                 } else {
                     event.preventDefault();
                     alert('El carrito está vacío.');

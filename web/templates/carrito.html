@@ -274,7 +274,8 @@
                     purchaseHistory.push({
                         date: formattedDate,
                         items: cart,
-                        total: total
+                        total: total, // Asegurarse de guardar el total correcto
+                        status: 'pendiente' // Establecer el estado inicial como pendiente
                     });
                     localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
 

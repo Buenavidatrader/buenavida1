@@ -59,9 +59,18 @@ class CartItem(models.Model):
         return f"{self.quantity} x {self.product.name}"
 
 class Purchase(models.Model):
+    PENDING = 'pendiente'
+    DELIVERED = 'entregado'
+
+    STATUS_CHOICES = [
+        (PENDING, 'Pendiente'),
+        (DELIVERED, 'Entregado'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
 
     def __str__(self):
         return f"Compra de {self.user.username} el {self.date}"

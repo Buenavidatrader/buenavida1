@@ -1,11 +1,7 @@
 from django.contrib import admin
-from .models import Producto
-from django.contrib.auth.models import User
-from .models import CartItem
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
-from .models import Pedido
-
+from .models import Producto, CartItem, CustomUser, Pedido, Purchase
+from django.utils.html import format_html
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
@@ -18,14 +14,22 @@ class PedidoAdmin(admin.ModelAdmin):
     search_fields = ('usuario__username', 'fecha')
     list_filter = ('fecha',)
 
+@admin.register(Purchase)
+class PurchaseAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date', 'total', 'colored_status')
+    list_filter = ('status',)
+    search_fields = ('user__username', 'date', 'total')
+    ordering = ('-date',)
+
+    def colored_status(self, obj):
+        if obj.status == 'pendiente':
+            color = 'orange'
+        elif obj.status == 'entregado':
+            color = 'green'
+        else:
+            color = 'black'
+        return format_html('<span style="color: {};">{}</span>', color, obj.get_status_display())
+    colored_status.short_description = 'Estado'
+
 admin.site.register(CartItem)
 admin.site.register(CustomUser, UserAdmin)
-
-
-# Obtén el usuario "juan"
-user = User.objects.get(username='juan')
-
-# Otorga permisos de superusuario
-user.is_superuser = True
-user.is_staff = True
-user.save()

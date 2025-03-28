@@ -286,9 +286,7 @@
                     localStorage.removeItem('cart');
 
                     // Redirigir al historial de pedidos
-                    setTimeout(() => {
-                        window.location.href = "{% url 'historial' %}";
-                    }, 2000); // Esperar 2 segundos antes de redirigir
+                    
                     
                 } else {
                     event.preventDefault();

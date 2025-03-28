@@ -23,7 +23,7 @@ class PurchaseAdmin(admin.ModelAdmin):
 
     def colored_status(self, obj):
         if obj.status == 'pendiente':
-            color = 'orange'
+            color = 'red'
         elif obj.status == 'entregado':
             color = 'green'
         else:

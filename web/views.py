@@ -364,6 +364,39 @@ def eliminar_compra(request, purchase_id):
 
 
 
+def historial_view(request):
+    # Fetch purchase history for the current user
+    purchase_history = Purchase.objects.filter(user=request.user).prefetch_related('items')
+    return render(request, 'historial.html', {'purchase_history': purchase_history})
+
+
+def save_purchase_history(request):
+    if request.method == 'POST':
+        cart_data = request.POST.get('cart')
+        total = request.POST.get('total')
+        
+        # Create a new Purchase
+        purchase = Purchase.objects.create(
+            user=request.user,
+            total=float(total),
+            status='pendiente'
+        )
+        
+        # Parse the cart data
+        cart_items = json.loads(cart_data)
+        
+        # Create PurchaseItems
+        for item in cart_items:
+            PurchaseItem.objects.create(
+                purchase=purchase,
+                name=item['name'],
+                quantity=item['quantity'],
+                unit_price=item['price'],
+                total_price=item['price'] * item['quantity']
+            )
+        
+        return redirect('historial')
+
 
 
 

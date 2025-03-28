@@ -102,7 +102,6 @@ PurchaseItem.objects.create(purchase=compra, name="Producto B", quantity=1, unit
     </div>
     <div class="h"> 
         <div class="container mt-5">
-            
             {% if purchase_history %}
             <table class="table table-striped">
                 <thead>
@@ -117,16 +116,15 @@ PurchaseItem.objects.create(purchase=compra, name="Producto B", quantity=1, unit
                 <tbody>
                     {% for purchase in purchase_history %}
                         <tr>
-                            <!-- Formatear la fecha para que no muestre la hora -->
                             <td>{{ purchase.date|date:"Y-m-d" }}</td>
                             <td>
                                 <ul>
                                     {% for item in purchase.items.all %}
-                                        <li>{{ item.name }} x {{ item.quantity }} - ${{ item.total_price }} COP</li>
+                                        <li>{{ item.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </td>
-                            <td>${{ purchase.total }} COP</td>
+                            <td>${{ purchase.total|floatformat:2 }} COP</td>
                             <td>
                                 {% if purchase.status == "pendiente" %}
                                     <button class="btn btn-warning" disabled>Pendiente de confirmación</button>
@@ -144,9 +142,9 @@ PurchaseItem.objects.create(purchase=compra, name="Producto B", quantity=1, unit
                     {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p>No tienes compras en tu historial.</p>
-        {% endif %}
+            {% else %}
+                <p>No tienes compras en tu historial.</p>
+            {% endif %}
         </div>
     </div>
     

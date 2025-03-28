@@ -17,7 +17,7 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, ',env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Configuración directa de las variables
@@ -76,8 +76,8 @@ WSGI_APPLICATION = 'mi_proyecto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': env('DB_ENGINE') ,
-        'NAME': BASE_DIR / env('DB_ENGINE') ,
+        'ENGINE':env('DB_ENGINE') ,
+        'NAME': BASE_DIR / env('DB_NAME') ,
     }
 }
 

@@ -12,12 +12,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ',env'))
+
 
 # Configuración directa de las variables
-SECRET_KEY = 'django-insecure-h-=8#s1%c7+fz61n&r$4j15p(10g^5n*nte=62t)qj3ma&$gio'
+SECRET_KEY = ('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -72,8 +76,8 @@ WSGI_APPLICATION = 'mi_proyecto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('DB_ENGINE') ,
+        'NAME': BASE_DIR / env('DB_ENGINE') ,
     }
 }
 
@@ -128,11 +132,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'jsbplaza@gmail.com'
-EMAIL_HOST_PASSWORD = 'hjmvmvuenpxjpxql'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env ('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Sesiones para la página web

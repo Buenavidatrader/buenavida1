@@ -44,6 +44,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="{% url 'historial' %}">
+                                        <i class='bx bx-pie-chart'></i> Historial de Compras
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}" id="logout-link">
                                         <i class='bx bx-exit'></i> Cerrar sesión
                                     </a>
@@ -76,6 +81,7 @@
             <div class="t2">
                 <h1>Bienvenido a BuenaVida</h1>
             </div>
+            <h1>{{ user.username }}</h1>
         </div>  
     </div>
 

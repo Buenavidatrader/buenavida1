@@ -81,6 +81,15 @@
             margin-top: 30px;
         }
     </style>
+
+    <script>
+      
+compra = Purchase.objects.create(user=request.user, total=100.00)
+
+
+PurchaseItem.objects.create(purchase=compra, name="Producto A", quantity=2, unit_price=25.00, total_price=50.00)
+PurchaseItem.objects.create(purchase=compra, name="Producto B", quantity=1, unit_price=50.00, total_price=50.00)
+    </script>
     
     <!-- Contenido -->
     <div class="fondo">
@@ -91,10 +100,10 @@
             </p>
         </div>
     </div>
-<div class="h"> 
-    <div class="container mt-5">
-        
-        {% if purchase_history %}
+    <div class="h"> 
+        <div class="container mt-5">
+            
+            {% if purchase_history %}
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -102,13 +111,14 @@
                         <th>Artículos</th>
                         <th>Total</th>
                         <th>Estado</th>
-                        <th>Acciones</th> <!-- Nueva columna para acciones -->
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for purchase in purchase_history %}
                         <tr>
-                            <td>{{ purchase.date }}</td>
+                            <!-- Formatear la fecha para que no muestre la hora -->
+                            <td>{{ purchase.date|date:"Y-m-d" }}</td>
                             <td>
                                 <ul>
                                     {% for item in purchase.items.all %}
@@ -137,9 +147,9 @@
         {% else %}
             <p>No tienes compras en tu historial.</p>
         {% endif %}
+        </div>
     </div>
-</div>
-
+    
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">

@@ -23,6 +23,15 @@ from .models import Pedido
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import logging
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def custom_logout(request):
+    logout(request)
+    if request.path.startswith('/admin/'):
+        # No cerrar sesión del admin
+        return redirect('/admin/')
+    return redirect('/')
 
 logger = logging.getLogger(__name__)
 
@@ -59,11 +68,9 @@ def save_purchase_history(request):
     return JsonResponse({'error': 'Método no permitido.'}, status=405)
 
 @login_required
-def purchase_history(request):
-    purchase_history = PurchaseHistory.objects.filter(user=request.user)
-    for purchase in purchase_history:
-        for item in purchase.items:
-            item['total_price'] = item['price'] * item['quantity']
+def historial_view(request):
+    # Obtén el historial de compras del usuario actual
+    purchase_history = Purchase.objects.filter(user=request.user).prefetch_related('items')
     return render(request, 'historial.html', {'purchase_history': purchase_history})
 
 def home(request):

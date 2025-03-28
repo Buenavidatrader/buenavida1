@@ -49,7 +49,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
+ 
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)  # Asegúrate de que el producto con ID 1 exista
     quantity = models.PositiveIntegerField(default=1)
@@ -59,8 +59,8 @@ class CartItem(models.Model):
         return f"{self.quantity} x {self.product.name}"
 
 class Purchase(models.Model):
-    PENDING = 'pendiente'
-    DELIVERED = 'entregado'
+    PENDING = 'Pendiente'
+    DELIVERED = 'Entregado'
 
     STATUS_CHOICES = [
         (PENDING, 'Pendiente'),
@@ -73,13 +73,24 @@ class Purchase(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
 
     def __str__(self):
-        return f"Compra de {self.user.username} el {self.date}"
+        # Obtener los productos relacionados con esta compra
+        items = self.items.all()
+        productos = ", ".join([f"{item.quantity} x {item.name}" for item in items])
+        return f"Compra de {self.user.username} el {self.date} - Productos: {productos}"
 
 class PurchaseItem(models.Model):
     purchase = models.ForeignKey(Purchase, related_name='items', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField()
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        # Calcula el precio total si no está definido
+        if self.unit_price == 0 and self.quantity > 0:
+            self.unit_price = self.total_price / self.quantity
+        self.total_price = self.quantity * self.unit_price
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.quantity} x {self.name} - ${self.total_price} COP"
@@ -92,5 +103,7 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"Pedido {self.id} de {self.usuario.username}"
+
+
 
 

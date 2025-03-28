@@ -12,25 +12,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-import environ
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # o False en producción
-
+# Configuración directa de las variables
+SECRET_KEY = 'django-insecure-h-=8#s1%c7+fz61n&r$4j15p(10g^5n*nte=62t)qj3ma&$gio'
+DEBUG = True
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -48,7 +37,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Debe estar antes
+    'web.middleware.AdminSessionMiddleware',  # Middleware personalizado
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,8 +72,8 @@ WSGI_APPLICATION = 'mi_proyecto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': env('DB_ENGINE'),
-        'NAME': BASE_DIR / env('DB_NAME'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -138,16 +128,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Reemplaza con la contraseña de aplicación generada
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jsbplaza@gmail.com'
+EMAIL_HOST_PASSWORD = 'hjmvmvuenpxjpxql'
 
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Sesiones para la página web
+ADMIN_SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # Sesiones para el admin
 
-
-        
+# Cookie de sesión predeterminada para la página web
+SESSION_COOKIE_NAME = 'web_sessionid'
 
 # Configuración de mensajes
 from django.contrib.messages import constants as messages

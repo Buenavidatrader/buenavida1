@@ -21,6 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.core.mail import send_mail
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetCompleteView
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from web.views import custom_logout
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +35,7 @@ urlpatterns = [
     path('productos/', views.productos, name='productos'),
     path('nosotros/', views.nosotros, name='nosotros'),
     path('contacto/', views.contacto, name='contacto'),
-    path('logout/', views.logout_view, name='logout'),
+    path('logout/', custom_logout, name='logout'),
     path('perfil/', views.perfil, name='perfil'),
     path('manual/', views.manual, name='manual'),
     path('historial/', views.historial_view, name='historial'),
@@ -44,6 +48,7 @@ urlpatterns = [
     path('save_purchase_history/', views.save_purchase_history, name='save_purchase_history'),
     path('eliminar_compra/<int:purchase_id>/', views.eliminar_compra, name='eliminar_compra'),
     path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
+   
 ]
 
 if settings.DEBUG:

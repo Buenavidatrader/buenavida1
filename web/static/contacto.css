@@ -95,7 +95,9 @@ body {
     height: 50vh;
 }
 
-
+.text{
+    color: rgb(255, 0, 195);
+}
 
 
 /* formu */

@@ -15,6 +15,7 @@
         <div class="container"> 
             <a class="navbar-brand" href="{% url 'homes' %}">
                 <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+                <span class="text">BuenaVida</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -94,13 +95,15 @@
                 <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                 <h3>{{ producto.nombre }}</h3>
                 <p class="price">${{ producto.precio }} COP</p>
+                <p class="description">{{ producto.descripcion }}</p>
                 <div class="botones">
-                    <button class="bt2 add-to-cart" data-id="{{ producto.id }}" data-name="{{ producto.nombre }}" data-price="{{ producto.precio }}">Agregar al carrito</button>
+                <button class="bt2 add-to-cart" data-id="{{ producto.id }}" data-name="{{ producto.nombre }}" data-price="{{ producto.precio }}" data-image="{{ producto.imagen.url }}">Agregar al carrito</button>
                 </div>
             </div>
             {% endfor %}
         </div>    
     </div>
+
 
       <!-- Footer -->
 <footer class="footer mt-5">

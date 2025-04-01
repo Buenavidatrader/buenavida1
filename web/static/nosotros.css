@@ -77,7 +77,9 @@ body {
     text-align: center;
 }
 
-
+.text{
+    color: rgb(255, 0, 195);
+}
 
 .fondo{
     height: 50vh;

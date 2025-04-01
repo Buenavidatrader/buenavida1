@@ -52,6 +52,9 @@ body {
     color: rgb(255, 0, 195);
 }
 
+.text{
+    color: rgb(255, 0, 195);
+}
 
 .center{
     display: flex;

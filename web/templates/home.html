@@ -16,6 +16,7 @@
         <div class="container"> 
             <a class="navbar-brand" href="">
                 <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+                <span class="text">BuenaVida</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -82,12 +83,16 @@
                 <h1>Bienvenido a BuenaVida</h1>
             </div>
             <h1>{{ user.username }}</h1>
+            <p>Descubre nuestra exclusiva colección de manillas hechas a mano, diseñadas para resaltar tu estilo con elegancia y personalidad. En Buenavida,<br> cada pieza está creada con materiales de alta calidad, cuidando cada detalle para brindarte accesorios únicos y duraderos.</p>
+
+            
         </div>  
     </div>
 
     
           
     <!-- Nueva sección de etiquetas -->
+<div class="s">
     <section class="tags-section">
         <div class="tag">
             <img src="{% static 'img/f.jpeg' %}" alt="Etiqueta 1">
@@ -105,7 +110,7 @@
             <p>Un modelo único con formas creativas que destacan. Diseñada para quienes buscan un accesorio original y diferente. Disponible en una variedad de diseños y materiales para adaptarse a tu personalidad.</p>
         </div>
     </section>
-
+</div>
 
     <!-- Footer -->
     <footer class="footer mt-5">

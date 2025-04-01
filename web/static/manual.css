@@ -12,6 +12,10 @@ body {
     padding-top: 56px; /* Ajuste para la barra de navegación fija */
 }
 
+.text{
+    color: rgb(255, 0, 195);
+}
+
 /* Navbar */
 .navbar {
     border-radius: 0 0 30px 30px;

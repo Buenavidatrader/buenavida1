@@ -54,7 +54,7 @@ def save_purchase_history(request):
         )
 
         # Guardar el historial de compra en la base de datos
-        purchase = Purchase.objects.create(user=request.user, total=total)
+        purchase = Purchase.objects.create(user=request.user, ñtotal=total)
         for item in cart:
             PurchaseItem.objects.create(
                 purchase=purchase,

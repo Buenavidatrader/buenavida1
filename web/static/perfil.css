@@ -13,6 +13,9 @@ body {
     background-attachment: scroll; /* La imagen se desplaza con el contenido */
 }
 
+.text{
+    color: rgb(255, 0, 195);
+}
 
 /* Navbar */
 .navbar {

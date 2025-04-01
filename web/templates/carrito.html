@@ -27,6 +27,7 @@
         <div class="container"> 
             <a class="navbar-brand" href="{% url 'homes' %}">
                 <img src="{% static 'img/logotipo.png' %}" alt="BuenaVida Logo" style="height: 50px; border-radius: 50%;">
+                <span class="text">BuenaVida</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -150,6 +151,11 @@
     
     
     <script>
+
+
+
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartItemsContainer = document.getElementById('cart-items');
@@ -161,6 +167,8 @@
             const qrCode = document.getElementById('qr-code');
 
             function updateCart() {
+                console.log("Carrito:", cart); // <-- Verificar en la consola si los productos tienen imagen
+
                 if (cart.length === 0) {
                     cartItemsContainer.innerHTML = '<p>El carrito está vacío</p>';
                     cartTotalContainer.innerHTML = '';
@@ -171,6 +179,7 @@
                         total += item.price * item.quantity;
                         cartItemsContainer.innerHTML += `
                             <div class="cart-item">
+                                <img src="{{ item.producto.foto.url }}" alt="{{item.producto.nombre}}" class="cart-item-image">
                                 <div class="cart-item-details">
                                     <h5>${item.name}</h5>
                                     <p>Precio: $${item.price} COP</p>
@@ -242,6 +251,8 @@
             updateCart();
         });
     </script> 
+
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
